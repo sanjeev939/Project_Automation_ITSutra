@@ -7,6 +7,7 @@ import java.util.List;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -27,7 +28,13 @@ public class HomePage extends BasePage {
 	WebElement courseCreate;
 
 	@FindBy(xpath = "/html/body/div[2]/table/tbody/tr[1]/th")
-	List<WebElement> headerList;
+	List<WebElement> headerList;	
+	
+	@FindBy(id="SelectedDepartment")
+	WebElement SelectDepartment;
+	
+	@FindBy(xpath = "//input[@type='submit']" )
+	WebElement Filter;	
 	
 	@FindBy(xpath = "/html/body/div[2]/table/tbody/tr/td")
 	List<WebElement> coursesDescription;
@@ -89,18 +96,15 @@ public class HomePage extends BasePage {
 			System.out.print(nameOnHeader + " ");
 		}
 		Assert.assertTrue(true, "Number Title Credits Department");
-	}
+	}	
 	
-	public String tableRecord() {
+	public void tableRecord() {
 		CoursePageTitle.click();
-		for (int i = 0; i < coursesDescription.size(); i++) {
-			String tableChecker = coursesDescription.get(i).getText();
-			//System.out.println(tableChecker);
-			if (tableChecker.contains("")) {
-				return "True: Records could be empty";
-			}
-		}
-		return null;			
+		Select s = new Select (SelectDepartment);
+		s.selectByValue("1");
+		Filter.click();
+		Assert.assertTrue(coursesDescription.isEmpty());
+				
 		}
 	
 	public void editFeature() {

@@ -55,8 +55,7 @@ public class TestStudentsPage extends BasePage {
 	public void verifyInActive() throws InterruptedException {
 			studentsPage.inActiveCheck();
 			Thread.sleep(2000);
-	}
-	
+	}	
 	  @Test
 	    public void editCoursesFromStudentsPage() throws InterruptedException {
 		  studentsPage.editFeatureStudents();
